@@ -1,12 +1,15 @@
 
 
 #  MRP Inventory System Mobile <img src="http://img.shields.io/badge/-Java-F89820?style=flat&logo=java&logoColor=white">
+
 <img src = "https://github.com/yasintohan/MRP-Inventory-System-Mobile/blob/master/images/banner.jpg">
 <br/>
+
 I developed a mobile app that takes bill of material and the gross requirements of the end item along with the stock, scheduled receipt, arrival on week, lead time and lot sizing rule information of the subcomponents to create MRP records for all parts and components of the snow shovel.
 
 ## Product Structure
 Consider the product structure that belongs to a snow shovel. The demand and the inventory data provided below:
+
 <br/><img src = "https://github.com/yasintohan/MRP-Inventory-System-Mobile/blob/master/images/graphic.JPG">
 <br/><img src = "https://github.com/yasintohan/MRP-Inventory-System-Mobile/blob/master/images/table.JPG">
 
@@ -15,6 +18,7 @@ Consider the product structure that belongs to a snow shovel. The demand and the
 
   
 There are 3 buttons in the application. These are "Order Item", "Reset Order" and "Update Inventory" buttons.
+
 <br/><img src = "https://github.com/yasintohan/MRP-Inventory-System-Mobile/blob/master/images/2.jpg">
 
 ### "Order Item" button
@@ -27,6 +31,7 @@ There are 3 buttons in the application. These are "Order Item", "Reset Order" an
 7. Sub-item test is made for the current item, if there are subitems, calculations are made for the subitems and printed on the screen.
 
 <br/><img src = "https://github.com/yasintohan/MRP-Inventory-System-Mobile/blob/master/images/3.jpg">
+
 ### "Reset Order" button
 After ordering the item, it deletes the tables printed on the screen.
 
