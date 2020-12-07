@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -27,37 +28,37 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static int item314amount = 0;
-    public static int item14127amount = 60;
-    public static int item019amount = 50;
-    public static int item2142amount = 80;
-    public static int item129amount = 0;
-    public static int item1118amount = 30;
-    public static int item11495amount = 120;
-    public static int item457amount = 0;
-    public static int item062amount = 50;
-    public static int item13122amount = 0;
-    public static int item048amount = 30;
-    public static int item118amount = 0;
-    public static int item1605amount = 30;
+    public static int item314amount;
+    public static int item14127amount;
+    public static int item019amount;
+    public static int item2142amount;
+    public static int item129amount;
+    public static int item1118amount;
+    public static int item11495amount;
+    public static int item457amount;
+    public static int item062amount;
+    public static int item13122amount;
+    public static int item048amount;
+    public static int item118amount;
+    public static int item1605amount;
 
 
 
-    public static ProductItem item457 = new ProductItem("457", item457amount,20,2,2,1,1, new ProductItem[]{});
-    public static ProductItem item062r2 = new ProductItem("062", item062amount,100,6,2,1,2, new ProductItem[]{});
-    public static ProductItem item1118 = new ProductItem("1118", item1118amount,0,0,3,1,1, new ProductItem[]{});
-    public static ProductItem item129 = new ProductItem("129", item129amount,100,8,4,40,1, new ProductItem[]{});
-    public static ProductItem item11495 = new ProductItem("11495", item11495amount,0,0,1,50,1, new ProductItem[]{item129,item1118});
-    public static ProductItem item13122 = new ProductItem("13122", item13122amount,70,3,1,40,1, new ProductItem[]{item457,item062r2,item11495});
-    public static ProductItem item048 = new ProductItem("048", item048amount,0,0,3,30,1, new ProductItem[]{});
-    public static ProductItem item118 = new ProductItem("118", item118amount,50,2,2,1,1, new ProductItem[]{});
-    public static ProductItem item062r4 = new ProductItem("062", item062amount,100,6,2,1,4, new ProductItem[]{});
-    public static ProductItem item14127r4 = new ProductItem("14127", item14127amount,0,0,2,50,4, new ProductItem[]{});
-    public static ProductItem item2142 = new ProductItem("2142", item2142amount,0,0,2,100,1, new ProductItem[]{});
-    public static ProductItem item019 = new ProductItem("019", item019amount,40,5,2,50,1, new ProductItem[]{});
-    public static ProductItem item14127r6 = new ProductItem("14127", item14127amount,0,0,2,50,6, new ProductItem[]{});
-    public static ProductItem item314 = new ProductItem("314", item314amount,50,5,1,50,1, new ProductItem[]{item2142, item019, item14127r6});
-    public static ProductItem item1605 = new ProductItem("1605", item1605amount,0,0,1,1,1, new ProductItem[]{item13122,item048,item118,item062r4,item14127r4,item314});
+    public static ProductItem item457;
+    public static ProductItem item062r2;
+    public static ProductItem item1118;
+    public static ProductItem item129;
+    public static ProductItem item11495;
+    public static ProductItem item13122;
+    public static ProductItem item048;
+    public static ProductItem item118;
+    public static ProductItem item062r4;
+    public static ProductItem item14127r4;
+    public static ProductItem item2142;
+    public static ProductItem item019;
+    public static ProductItem item14127r6;
+    public static ProductItem item314;
+    public static ProductItem item1605;
 
     public static String itemnum;
 
@@ -76,12 +77,25 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<ProductItem> mList = new ArrayList<>();
 
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sp = getSharedPreferences("Inventory",MODE_PRIVATE);
+        editor = sp.edit();
+        setItems(sp, editor);
+        saveItems(item1605, sp, editor);
+
+        printInv(item1605);
+        setTable(inv,invHeader);
+        invLine = 0;
+
 
         recyclerView= findViewById(R.id.cardlisterr);;
         final Adapter adapter = new Adapter(this, mList);
@@ -219,6 +233,11 @@ public class MainActivity extends AppCompatActivity {
                         onClick(view);
                     }
 
+                    saveItems(item1605, sp, editor);
+
+                    printInv(item1605);
+                    setTable(inv,invHeader);
+                    invLine = 0;
 
                     grosstext1.setText("");
                     grosstext2.setText("");
@@ -276,6 +295,58 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public static void setItems(SharedPreferences sp, SharedPreferences.Editor editor){
+        item314amount = sp.getInt("314", 0);
+        item14127amount = sp.getInt("14127", 60);
+        item019amount = sp.getInt("019", 50);
+        item2142amount = sp.getInt("2142", 80);
+        item129amount = sp.getInt("129", 0);
+        item1118amount = sp.getInt("1118", 30);
+        item11495amount = sp.getInt("11495", 120);
+        item457amount = sp.getInt("457", 0);
+        item062amount = sp.getInt("062", 50);
+        item13122amount = sp.getInt("13122", 70);
+        item048amount = sp.getInt("048", 30);
+        item118amount = sp.getInt("118", 0);
+        item1605amount = sp.getInt("1605", 30);
+
+
+
+        item457 = new ProductItem("457", item457amount,20,2,2,1,1, new ProductItem[]{});
+        item062r2 = new ProductItem("062", item062amount,100,6,2,1,2, new ProductItem[]{});
+        item1118 = new ProductItem("1118", item1118amount,0,0,3,1,1, new ProductItem[]{});
+        item129 = new ProductItem("129", item129amount,100,8,4,40,1, new ProductItem[]{});
+        item11495 = new ProductItem("11495", item11495amount,0,0,1,50,1, new ProductItem[]{item129,item1118});
+        item13122 = new ProductItem("13122", item13122amount,70,3,1,40,1, new ProductItem[]{item457,item062r2,item11495});
+        item048 = new ProductItem("048", item048amount,0,0,3,30,1, new ProductItem[]{});
+        item118 = new ProductItem("118", item118amount,50,2,2,1,1, new ProductItem[]{});
+        item062r4 = new ProductItem("062", item062amount,100,6,2,1,4, new ProductItem[]{});
+        item14127r4 = new ProductItem("14127", item14127amount,0,0,2,50,4, new ProductItem[]{});
+        item2142 = new ProductItem("2142", item2142amount,0,0,2,100,1, new ProductItem[]{});
+        item019 = new ProductItem("019", item019amount,40,5,2,50,1, new ProductItem[]{});
+        item14127r6 = new ProductItem("14127", item14127amount,0,0,2,50,6, new ProductItem[]{});
+        item314 = new ProductItem("314", item314amount,50,5,1,50,1, new ProductItem[]{item2142, item019, item14127r6});
+        item1605 = new ProductItem("1605", item1605amount,0,0,1,1,1, new ProductItem[]{item13122,item048,item118,item062r4,item14127r4,item314});
+
+
+    }
+
+
+    public static void saveItems(ProductItem item, SharedPreferences sp, SharedPreferences.Editor editor){
+
+        editor.putInt(item.getItemId(), item.getAmountOnHand());
+        editor.commit();
+
+        if(item.getChilds().length !=0) {
+            for(int i = 0; i<item.getChilds().length;i++){
+                saveItems(item.getChilds(i),sp,editor);
+            }
+        }
+
+    }
+
+
 
     public static void printInv(ProductItem item){
 
