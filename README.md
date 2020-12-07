@@ -37,7 +37,7 @@ After ordering the item, it deletes the tables printed on the screen.
 
 ### "Update Inventory" button
 When the button is pressed, you can see the current inventory status.
->Since the application is not connected to any database, the inventory is reset when the application is closed and opened.
+>Saving data to inventory has been added with SharedPreferences.
 
 <br/><img src = "/images/1.jpg" height="30%" width="30%">
 
